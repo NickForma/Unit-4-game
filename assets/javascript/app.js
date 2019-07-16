@@ -36,7 +36,7 @@ $(document).ready(function () {
             answerBank: ["Bag End", "Underhill", "Hobbiton", "Eyre"],
             answerimg: '',
         },
-        
+
         {
             question: "Where does Legolas call home?",
             answer: "Mirkwood",
@@ -44,21 +44,18 @@ $(document).ready(function () {
             answerimg: '',
         }
     ]
-    
+
+
     $('#start').on('click', function () {
-        // $('#start').attr(<style>
-        //     #start {
-        //         visibility: hidden;
-        //     }
-        // </style>);
-        
-        console.log(this)
-        
-        let countdown = 30
+
+        $('.button').html('')
+
+
+        let countdown = 8
         let intervalId;
         const userInput = []
-        
-        
+
+
         //starting countdown
         function run() {
             clearInterval(intervalId);
@@ -68,24 +65,23 @@ $(document).ready(function () {
         function decrement() {
             countdown--;
             $('#clock').text(countdown)
-            
+
             if (countdown === 0) {
                 stop();
                 answersPage();
             }
         }
-        
+
         function stop() {
 
-            //    $('#timer').html('');
             clearInterval(intervalId)
-            
+
         }
-        
+
         run();
-        
+
         questions.forEach(function (element) {
-            
+
 
             let answer = element.answer
             let answerBank = element.answerBank
@@ -107,7 +103,7 @@ $(document).ready(function () {
             </form>
             </div>`)
         })
-        
+
         $('input').on('click', function (e) {
             let userAnswer = e.currentTarget.dataset.value;
             console.log(userAnswer);
@@ -115,42 +111,49 @@ $(document).ready(function () {
             // userInput.push(userAnswer);
             // console.log(userInput);
         })
-        
-        console.log(userInput)
-        
-        
-        
-        console.log(questions[0].answer)
-        
+
+        let correctAns = 0
+        let incorrectAns = 0
+
         let answersPage = function () {
-            
-            console.log(userInput)
-            console.log(questions[1].answerBank[0])
-            $('body').html(`
-            <h2>
-            Answers! 
-            </h2>
-            
-            <div class="answers">
-            
-            </div>
-            `);
-            
-            // for (var i=0; i <= questions.length; i++){
-                //     if (userInput[i] === element.answer[i]){
-                    //         console.log("CORRECTO")
-                    //     }else{
-                        //         console.log("INCORECTOI")
-            //     }
-            // }
-            
+
+
+            for (let i = 0; i < questions.length; i++) {
+                if (userInput[i] === questions[i].answer){
+                    correctAns++
+                    console.log('herp')
+                } else if(userInput[i] !== questions[i].answer){
+                    incorrectAns++
+                    console.log('LOSER')
+                } else if (userInput[i] == null){
+                    console.log('SIBERIAN HUSKY')
+                }
+            }
+
+            console.log(correctAns)
+            console.log(incorrectAns)
+
+            $('.answer-box').html(
+                `<h2>Time's Up!</h2>
+                <h3>Correct Answers: ${correctAns}</h3>
+                <h3>Incorrect Answers: ${incorrectAns}</h3>`
+
+
+
+            )        
+
+
+
+                // correct answers
+                // incorrect answers
+                // unanswered
+
+
+
+
 
             
-        }
         
         //save the selected answer, compare it to the real one.
         
-    })
-
-
-})
+    }})})
